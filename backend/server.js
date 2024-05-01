@@ -5,7 +5,7 @@ const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
-// const path = require("path");
+const path = require("path");
 
 dotenv.config();
 connectDB();
@@ -36,13 +36,14 @@ if (process.env.NODE_ENV === "production") {
     res.send("API is running..");
   });
 }
+
+// --------------------------deployment------------------------------
+
 // Error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT
-
-// console.log(process.env.MONGO_URI)
+const PORT = process.env.PORT;
 
 const server = app.listen(
   PORT,
@@ -52,8 +53,8 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "*",
-    credentials: true,
+    origin: "http://localhost:3000",
+    // credentials: true,
   },
 });
 
